@@ -2,17 +2,19 @@
 #include "led.h"
 #include "oled.h"
 
-void initialize_webserver(void){
-    /*Initializes webserver*/
-    server.on("/", [] (){
-        server.send(200, "Header", "Node WebServer - Home");
-    });
-    server.begin();
-}
-
 void wifi_setup_webserver(void){
     /*Initializes wifi setup webserver*/
-    write_to_display("[WIFI] SETUP", 0, 0, 1);
+    clear_oled();
+    draw_ap();
     WiFiManager wifiManager;
+    wifiManager.resetSettings();
     wifiManager.autoConnect("ESP_AP", "12345678"); 
+
+    if (WiFi.status() == WL_CONNECTED)
+    {
+        clear_oled();
+        write_to_display("[WIFI] Connected", 0, 0, 1);
+        Serial.println(WiFi.localIP()); 
+        delay(1000);
+    }    
 }

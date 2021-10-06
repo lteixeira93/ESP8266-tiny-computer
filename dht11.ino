@@ -8,7 +8,7 @@ float bHumidity    = 0;
 void initialize_dht11(void){
     /*Initializes sensor*/
     clear_oled();
-    write_to_display("[DHT] Loading", 0, 0, 1);
+    write_to_display("[DHT11] Loading", 0, 0, 1);
     dht.begin();
     delay(1000);
 }
@@ -19,14 +19,18 @@ float readTemperature(void){
 
     if(!isnan(temperature)){
         bTemperature = temperature;
-        Serial.print("Current temperature = ");
-        Serial.println(temperature);
+        #ifdef DEBUG_ESP
+            Serial.print("Current temperature = ");
+            Serial.println(temperature);
+        #endif
 
         return temperature;
     }
     else{
-        Serial.print("Current temperature = ");
-        Serial.println(bTemperature);
+        #ifdef DEBUG_ESP
+            Serial.print("Current temperature = ");
+            Serial.println(bTemperature);
+        #endif
 
         return bTemperature;
     }
@@ -38,15 +42,20 @@ float readHumidity(void){
     float humidity = dht.readHumidity();
 
     if(!isnan(humidity)){
-        Serial.print("Current humidity = ");
-        bHumidity = humidity;
-        Serial.println(humidity);
+        #ifdef DEBUG_ESP
+            Serial.print("Current humidity = ");        
+            Serial.println(humidity);
+        #endif
 
+        bHumidity = humidity;
+        
         return humidity;
     }
     else{
-        Serial.print("Current humidity = ");
-        Serial.println(bHumidity);
+        #ifdef DEBUG_ESP
+            Serial.print("Current humidity = ");
+            Serial.println(bHumidity);
+        #endif
 
         return bHumidity;
     }    

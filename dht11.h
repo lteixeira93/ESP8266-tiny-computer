@@ -2,6 +2,7 @@
 #define DHT11_H_
 
 #include <DHT.h>
+#include "debug.h"
 
 #define DHT_TYPE    DHT11
 #define DHT_PIN     14 // D5

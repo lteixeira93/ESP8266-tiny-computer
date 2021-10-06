@@ -4,6 +4,7 @@
 #include <Wire.h>
 #include <SPI.h>
 #include <RtcDS3231.h>
+#include "debug.h"
 
 RtcDS3231<TwoWire> rtc(Wire);
 
