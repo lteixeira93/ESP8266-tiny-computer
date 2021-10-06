@@ -7,7 +7,7 @@ void initialize_oled(void){
     
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
     if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_OLED
             Serial.println(F("SSD1306 allocation failed"));
         #endif
         for(;;);

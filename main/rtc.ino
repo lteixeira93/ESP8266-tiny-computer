@@ -3,7 +3,7 @@
 void initialize_rtc(void){
     /*Initializes RTC*/
     clear_oled();
-    write_to_display("[RTC] Loading", 0, 0, 1);
+    write_to_display("[RTC] Initializing", 0, 0, 1);
     rtc.Begin();
     delay(1000);
 }
@@ -20,7 +20,7 @@ void show_timestamp(void){
             currentTime.Hour(),             
             currentTime.Minute(),           
             currentTime.Second()
-            );
+    );
     
     Serial.println(RTC_TIME);
 }

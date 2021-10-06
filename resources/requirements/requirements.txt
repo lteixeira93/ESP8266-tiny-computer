@@ -1,0 +1,16 @@
+Adafruit_BusIO
+Adafruit_FONA_Library
+Adafruit_GFX_Library
+Adafruit_MQTT_Library
+Adafruit_SleepyDog_Library
+Adafruit_SSD1306
+Adafruit_Unified_Sensor
+DHT_sensor_library
+DNSServer
+DS3231
+PubSubClient-2.8.0
+Rtc_by_Makuna
+RTClib
+TinyWireM
+WiFi101
+WiFiManager

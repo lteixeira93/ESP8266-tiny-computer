@@ -7,7 +7,11 @@ void wifi_setup_webserver(void){
     clear_oled();
     draw_ap();
     WiFiManager wifiManager;
-    wifiManager.resetSettings();
+
+    #ifdef DEBUG_WEBSERVER
+        wifiManager.resetSettings();
+    #endif
+    
     wifiManager.autoConnect("ESP_AP", "12345678"); 
 
     if (WiFi.status() == WL_CONNECTED)

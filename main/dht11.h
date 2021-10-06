@@ -5,7 +5,7 @@
 #include "debug.h"
 
 #define DHT_TYPE    DHT11
-#define DHT_PIN     14 // D5
+#define DHT_PIN     2
 
 void initialize_dht11(void);
 float readTemperature(void);

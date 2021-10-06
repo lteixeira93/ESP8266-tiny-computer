@@ -14,7 +14,7 @@ void check_mqtt_connection(void){
     
     uint8_t retries = 5;
     while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_MQTT
             Serial.println(mqtt.connectErrorString(ret));
             Serial.println("Retrying MQTT connection in 5 seconds...");
         #endif
@@ -26,7 +26,7 @@ void check_mqtt_connection(void){
             ESP.reset();
         }
     }
-    #ifdef DEBUG_ESP
+    #ifdef DEBUG_MQTT
         Serial.println("MQTT Connected!");
     #endif
 
@@ -44,24 +44,24 @@ void check_mqtt_connection(void){
 void publish_dht_data(float temperature, float humidity){
     /*Publishes dht11 data*/
     if (! Temperature.publish(temperature)) { 
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_MQTT
             Serial.println(F("Temperature Failed"));
         #endif
     } else {
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_MQTT
             Serial.println("Temperature: "+String(temperature)+"C");
         #endif
     }
-    #ifdef DEBUG_ESP
+    #ifdef DEBUG_MQTT
         Serial.print(F("\nSending Humidity val "));
     #endif
 
     if (! Humidity.publish(humidity)) {
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_MQTT
             Serial.println(F("Humidity Failed"));
         #endif
     } else {
-        #ifdef DEBUG_ESP
+        #ifdef DEBUG_MQTT
             Serial.println("Humidity: "+String(humidity)+"%");
         #endif
     }
