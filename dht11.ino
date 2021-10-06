@@ -7,8 +7,10 @@ float bHumidity    = 0;
 
 void initialize_dht11(void){
     /*Initializes sensor*/
+    clear_oled();
+    write_to_display("[DHT] Loading", 0, 0, 1);
     dht.begin();
-    delay(500);
+    delay(1000);
 }
 
 float readTemperature(void){

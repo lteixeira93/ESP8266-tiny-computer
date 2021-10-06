@@ -12,7 +12,7 @@ void initialize_webserver(void){
 
 void wifi_setup_webserver(void){
     /*Initializes wifi setup webserver*/
+    write_to_display("[WIFI] SETUP", 0, 0, 1);
     WiFiManager wifiManager;
-
     wifiManager.autoConnect("ESP_AP", "12345678"); 
 }
