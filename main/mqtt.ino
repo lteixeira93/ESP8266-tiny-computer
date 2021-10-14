@@ -34,7 +34,7 @@ void check_mqtt_connection(void){
     {
         mqttConnectFlag = false;
         clear_oled();
-        write_to_display("[MQTT] Connected!", 0, 0, 1);
+        write_to_display("[MQTT] Connected", 0, 0, 1);
         delay(1000);
         clear_oled();
     } 

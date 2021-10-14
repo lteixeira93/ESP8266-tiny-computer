@@ -6,8 +6,7 @@ void wifi_setup_webserver(void){
     /*Initializes wifi setup webserver*/
     clear_oled();
     draw_ap();
-    WiFiManager wifiManager;
-
+    
     #ifdef DEBUG_WEBSERVER
         wifiManager.resetSettings();
     #endif

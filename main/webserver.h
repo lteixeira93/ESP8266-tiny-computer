@@ -12,4 +12,6 @@
 void initialize_webserver(void);
 void wifi_setup_webserver(void);
 
+WiFiManager wifiManager;
+
 #endif // WEBSERVER_H_ 

@@ -10,15 +10,27 @@
 #include "webserver.h"
 #include "debug.h"
 
-String dataString = "";
+#define PIN_BUTTON 0 // D3
+
 char RTC_TIME[20];
+String dataString = "";
+
+/*Reset counters for AP*/
+int setAPCounter = 0;
 
 void setup(){
     Serial.begin(115200);
+
+    /*Initializing button using internal pull up resistor*/
+    pinMode(PIN_BUTTON, INPUT_PULLUP);
+
+    /*Initializing peripherals*/
     initialize_oled();
     initialize_rtc();    
     initialize_dht11();
     initialize_sd();
+
+    /*Initializing webserver*/
     wifi_setup_webserver();
 }
 
@@ -40,7 +52,7 @@ void loop(){
     #endif
     
     /*Everyday at 18PM DHT11 sensor data will be sent to the cloud*/
-    if (currentTime.Hour() == 18 && currentTime.Minute() == 0 && currentTime.Second() == 0) {    
+    if (currentTime.Hour() == 22 && currentTime.Minute() == 38 && currentTime.Second() == 0) {    
         // Open and Save locally to SPI SDcard
         delay(500);
         dataString = String(RTC_TIME) + " , " + String(readHumidity()) + " , " + String(readTemperature());
@@ -59,4 +71,19 @@ void loop(){
         Serial.println(readTemperature());        
         Serial.println(dataString);
     #endif
+
+    if(digitalRead(PIN_BUTTON) == LOW){        
+        setAPCounter++;    
+        delay(1000);        
+        if (setAPCounter == 5)
+        {            
+            wifiManager.resetSettings();
+            wifi_setup_webserver();  
+            check_mqtt_connection();      
+        }
+        
+    } else {
+        Serial.println("Not Pushed");
+        setAPCounter = 0;    
+    }
 }
