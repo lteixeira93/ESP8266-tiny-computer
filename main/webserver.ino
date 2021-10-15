@@ -1,5 +1,4 @@
 #include "webserver.h"
-#include "led.h"
 #include "oled.h"
 
 void wifi_setup_webserver(void){
@@ -18,6 +17,8 @@ void wifi_setup_webserver(void){
         clear_oled();
         write_to_display("[WIFI] Connected", 0, 0, 1);
         Serial.println(WiFi.localIP()); 
-        delay(1000);
+        digitalWrite(LED_BUILTIN, HIGH); 
+        delay(2000);
+        digitalWrite(LED_BUILTIN, LOW); 
     }    
 }

@@ -43,7 +43,7 @@ void scroll_text(String text, int32_t x, int32_t y, int32_t text_size){
 	display.setTextSize(text_size);
 	display.println(text);
 	display.display();
-	display.startscrollleft(0x00, 0x00);
+	display.startscrollright(0x00, 0x00);
 }
 
 void draw_cloud(void){

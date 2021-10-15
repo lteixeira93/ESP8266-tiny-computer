@@ -14,7 +14,7 @@
 - This project explore almost all of the features of NodeMCU - ESP8266 platform, this way becoming a tiny computer
 - After code is loaded, NodeMCU will initialize all peripherals (I2C and SPI)
 - NodeMCU will try to connect to a previous saved network, if not successfull it will enable an access point with name ESP_AP so you can connect and scan networks through a graphical mode
-- After successfully connected to a network it will connect to mqtt broker (Adafruit IO) in order to send sensor data to a cloud dashboard
+- After successfully connected to a network it will update RTC clock using NTP over the internet and after  this, connect to mqtt broker (Adafruit IO) to send sensor data to a cloud dashboard
 - Everyday at a specific time, using RTC, NodeMCU will send DHT11 sensor data (Humidity and Temperature to the cloud and also save data locally in SD card in .csv format)
 - For each step, it will show informations on OLED display
 
@@ -22,7 +22,6 @@
 Please see \resources\images
 
 ## Wishlist
-- [x] Use EEPROM memory of DS3231 to save if data is already set, instead of using resources\rtc_set_properties\rtc_set_properties.ino script to set the time
 - [x] More info in OLED display
 - [x] Refactor code
 - [x] Add secure coding techniques
@@ -36,11 +35,11 @@ Install libs from resources\requirements\requirements.txt in Arduino library man
 Change debug level in debug.h setting or unsetting those flags:
 * DEBUG_ESP
 * DEBUG_OLED
-* DEBUG_LED
 * DEBUG_MQTT
 * DEBUG_RTC
 * DEBUG_SD
 * DEBUG_DHT
+* DEBUG_NTP
 * DEBUG_WEBSERVER
 
 #### References

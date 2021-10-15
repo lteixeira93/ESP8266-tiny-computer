@@ -7,10 +7,14 @@ void initialize_sd(void) {
     delay(1000);
 
     if (!SD.begin(CS_PIN)) {
+        clear_oled();
+        write_to_display("[SD] SD Card error", 0, 0, 1);
         Serial.println("SD Card error");
         return;
     }
     
+    clear_oled();
+    write_to_display("[SD] Card Initialized", 0, 0, 1);
     Serial.println("Card Initialized");   
 }
 

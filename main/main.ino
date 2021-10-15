@@ -8,9 +8,10 @@
 #include "rtc.h"
 #include "sd.h"
 #include "webserver.h"
+#include "ntp.h"
 #include "debug.h"
 
-#define PIN_BUTTON 0 // D3
+#define PIN_BUTTON 0 // Set push button to D3 port
 
 char RTC_TIME[20];
 String dataString = "";
@@ -24,35 +25,40 @@ void setup(){
     /*Initializing button using internal pull up resistor*/
     pinMode(PIN_BUTTON, INPUT_PULLUP);
 
+    /*Flashing starting LEDs*/
+    digitalWrite(LED_BUILTIN, HIGH);   
+    delay(1000);                        
+    digitalWrite(LED_BUILTIN, LOW);   
+    delay(1000);
+
     /*Initializing peripherals*/
-    initialize_oled();
-    initialize_rtc();    
+    initialize_oled();        
     initialize_dht11();
-    initialize_sd();
+    initialize_sd();    
 
     /*Initializing webserver*/
     wifi_setup_webserver();
+
+    /*Initializing system clock*/
+    initialize_ntp();
+    initialize_rtc();
 }
 
 void loop(){    
-    check_mqtt_connection();
-  
-    RtcDateTime currentTime = rtc.GetDateTime();
-    sprintf(RTC_TIME, "%d/%d/%d %d:%d:%d",       
-            currentTime.Year(),            
-            currentTime.Month(),            
-            currentTime.Day(),              
-            currentTime.Hour(),             
-            currentTime.Minute(),           
-            currentTime.Second()
-    );
+    check_mqtt_connection();   
 
+    RtcDateTime currentTime = rtc.GetDateTime(); 
+   
     #ifdef DEBUG_RTC
-        Serial.println(RTC_TIME);
+        show_timestamp();
     #endif
     
-    /*Everyday at 18PM DHT11 sensor data will be sent to the cloud*/
-    if (currentTime.Hour() == 22 && currentTime.Minute() == 38 && currentTime.Second() == 0) {    
+    /*
+        Everyday at a specific time using RTC, DHT11 sensor data will be sent to the cloud and also 
+        reset RTC using NTP
+    */
+    if ((currentTime.Hour() == 10 && currentTime.Minute() == 0 && currentTime.Second() == 0) 
+        || (currentTime.Hour() == 18 && currentTime.Minute() == 00 && currentTime.Second() == 0)) {    
         // Open and Save locally to SPI SDcard
         delay(500);
         dataString = String(RTC_TIME) + " , " + String(readHumidity()) + " , " + String(readTemperature());
@@ -60,6 +66,7 @@ void loop(){
         clear_oled();
         draw_cloud();
         publish_dht_data(readTemperature(), readHumidity());
+        update_rtc_ntp();
         delay(3000); // Add 3 seconds delay to jump multiple true in if statement in the same second
         clear_oled();
         write_to_display("[STATUS] Running", 0, 0, 1);
@@ -79,11 +86,10 @@ void loop(){
         {            
             wifiManager.resetSettings();
             wifi_setup_webserver();  
-            check_mqtt_connection();      
-        }
-        
-    } else {
-        Serial.println("Not Pushed");
+            check_mqtt_connection();     
+        }        
+    } 
+    else {        
         setAPCounter = 0;    
     }
 }
