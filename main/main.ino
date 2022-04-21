@@ -11,7 +11,7 @@
 #include "ntp.h"
 #include "debug.h"
 
-#define PIN_BUTTON 0 // Set push button to D3 port
+#define PIN_BUTTON 2 // Setting push button to D4 port
 
 char RTC_TIME[20];
 String dataString = "";
@@ -45,7 +45,7 @@ void setup(){
 }
 
 void loop(){    
-    check_mqtt_connection();   
+    check_mqtt_connection(); // TO:DO Add prints here  
 
     RtcDateTime currentTime = rtc.GetDateTime(); 
    
@@ -55,7 +55,7 @@ void loop(){
     
     /*
         Everyday at a specific time using RTC, DHT11 sensor data will be sent to the cloud and also 
-        reset RTC using NTP
+        reset RTC using NTP - TO:DO Need Fix
     */
     if ((currentTime.Hour() == 10 && currentTime.Minute() == 0 && currentTime.Second() == 0) 
         || (currentTime.Hour() == 18 && currentTime.Minute() == 00 && currentTime.Second() == 0)) {    
@@ -79,11 +79,10 @@ void loop(){
         Serial.println(dataString);
     #endif
 
-    if(digitalRead(PIN_BUTTON) == LOW){        
+    if(digitalRead(PIN_BUTTON) == LOW) {        
         setAPCounter++;    
         delay(1000);        
-        if (setAPCounter == 5)
-        {            
+        if (setAPCounter == 5) {            
             wifiManager.resetSettings();
             wifi_setup_webserver();  
             check_mqtt_connection();     

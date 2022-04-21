@@ -22,9 +22,10 @@
 Please see \resources\images
 
 ## Wishlist
-- [x] More info in OLED display
-- [x] Refactor code
+- [x] More info on OLED display
+- [x] Improve consistency
 - [x] Add secure coding techniques
+- [x] Perform longterm and reliability testing
 
 ## Quick Start
 
@@ -47,6 +48,7 @@ Change debug level in debug.h setting or unsetting those flags:
 * https://github.com/tzapu/WiFiManager
 * https://create.arduino.cc/projecthub/najad/interfacing-and-displaying-images-on-oled-59344a
 * https://thekurks.net/blog/2018/3/20/nodemcu-data-logger
+* https://github.com/esp8266
 
 #### Inspiration
  * TCG (love)

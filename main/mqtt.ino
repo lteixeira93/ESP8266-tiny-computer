@@ -23,7 +23,7 @@ void check_mqtt_connection(void){
         delay(5000);  // wait 5 seconds
         retries--;
         if (retries == 0) {
-            ESP.reset();
+            ESP.reset(); // TO:DO Check this
         }
     }
     #ifdef DEBUG_MQTT

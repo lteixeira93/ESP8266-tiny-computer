@@ -1,5 +1,5 @@
-#ifndef DEBUG_H_
-#define DEBUG_H_
+#ifndef _DEBUG_H_
+#define _DEBUG_H_
 
 #define DEBUG_ESP
 #define DEBUG_OLED
@@ -10,4 +10,4 @@
 #define DEBUG_NTP
 #define DEBUG_WEBSERVER
 
-#endif // DEBUG_H_
+#endif // _DEBUG_H_

@@ -1,5 +1,5 @@
-#ifndef NTP_H_
-#define NTP_H_
+#ifndef _NTP_H_
+#define _NTP_H_
 
 #include <WiFiUdp.h>
 #include <NTPClient.h>
@@ -17,4 +17,4 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 void initialize_ntp(void);
 const char* get_ntp_time(void);
 
-#endif // NTP_H_
+#endif // _NTP_H_

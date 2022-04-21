@@ -1,5 +1,5 @@
-#ifndef DHT11_H_
-#define DHT11_H_
+#ifndef _DHT11_H_
+#define _DHT11_H_
 
 #include <DHT.h>
 #include "debug.h"
@@ -11,4 +11,4 @@ void initialize_dht11(void);
 float readTemperature(void);
 float readHumidity(void);
 
-#endif // DHT11_H_
+#endif // _DHT11_H_

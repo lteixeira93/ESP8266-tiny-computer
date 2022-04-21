@@ -1,10 +1,9 @@
 #include <SPI.h>
 #include <SD.h>
 
-#define CS_PIN 15
+#define CS_PIN   15
+#define ERASE_SD 0
 
-File dataFile;
-String dataString = "Ok";
 bool writeToFlash = false;
 
 void initialize_sd(void) {
@@ -20,24 +19,26 @@ void initialize_sd(void) {
 
 void write_to_sd_card(String data) {
     /*Write to SD card*/
-    SD.begin(CS_PIN);
+    File dataFile;
     dataFile = SD.open("datalog.csv", FILE_WRITE);
 
     if (dataFile) {
         Serial.println(data);
-        dataFile.println(data);             
+        dataFile.println(data); 
+        dataFile.close();           
     }
 }
 
 void erase_sd_card(String data) {
     /*Erase data on SD card*/
-    SD.begin(CS_PIN);
     SD.remove(data);
 
-    if (SD.exists(data))
-    { 
+    if (SD.exists(data)) { 
         Serial.print("Could not delete file ");
         Serial.println(data);
+    }
+    else {
+        Serial.println(data + " erased");
     }
 }
  
@@ -49,9 +50,15 @@ void setup() {
 void loop(){    
     if (writeToFlash == false) {
         Serial.println("[SD] Starting operation");
-        //write_to_sd_card(dataString);        
-        erase_sd_card("datalog.csv");
-        erase_sd_card("datalog.txt");
+        String dataString = String(1) + ";" + String(2) + ";" + String(3) + ";";
+            
+        if (ERASE_SD) {
+            erase_sd_card("datalog.csv");
+        }
+        else {
+            write_to_sd_card(dataString);  
+        }
+
         writeToFlash = true;
     }   
 }

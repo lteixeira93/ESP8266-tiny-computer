@@ -1,5 +1,5 @@
-#ifndef MQTT_H_
-#define MQTT_H_
+#ifndef _MQTT_H_
+#define _MQTT_H_
 
 #include <Adafruit_MQTT.h>
 #include <Adafruit_MQTT_Client.h>
@@ -21,4 +21,4 @@ Adafruit_MQTT_Publish Humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/fee
 void check_mqtt_connection(void);
 void publish_dht_data(float temperature, float humidity);
 
-#endif // MQTT_H_
+#endif // _MQTT_H_

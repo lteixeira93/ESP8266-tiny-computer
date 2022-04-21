@@ -20,11 +20,13 @@ void initialize_sd(void) {
 
 void write_to_sd_card(String data) {
     /*Write to SD card*/
-    SD.begin(CS_PIN);
+
+    File dataFile;
     dataFile = SD.open("datalog.csv", FILE_WRITE);
 
     if (dataFile) {
         Serial.println(data);
-        dataFile.println(data);             
+        dataFile.println(data);  
+        dataFile.close();           
     }
 }

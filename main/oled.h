@@ -1,5 +1,5 @@
-#ifndef OLED_H_
-#define OLED_H_
+#ifndef _OLED_H_
+#define _OLED_H_
 
 #include <SPI.h>
 #include <Wire.h>
@@ -154,4 +154,4 @@ const unsigned char apoint [] PROGMEM = {
 	0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
 };
 
-#endif // OLED_H_
+#endif // _OLED_H_

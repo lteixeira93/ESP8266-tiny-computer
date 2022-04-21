@@ -6,9 +6,10 @@ void initialize_rtc(void){
     clear_oled();
     write_to_display("[RTC] Initializing", 0, 0, 1);
     rtc.Begin();
+    delay(1000);
     RtcDateTime currentTime = RtcDateTime(__DATE__, get_ntp_time());
     rtc.SetDateTime(currentTime);
-    delay(1000);
+
 }
 
 void show_timestamp(void){

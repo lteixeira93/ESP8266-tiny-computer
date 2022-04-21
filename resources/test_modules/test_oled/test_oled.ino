@@ -18,6 +18,8 @@ void setup()
     for(;;);
   }  
 
+  Serial.println("Starting...");
+
   // Show initial display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
   display.display();

@@ -1,5 +1,5 @@
-#ifndef RTC_H_
-#define RTC_H_
+#ifndef _RTC_H_
+#define _RTC_H_
 
 #include <Wire.h>
 #include <SPI.h>
@@ -14,4 +14,4 @@ void initialize_rtc(void);
 void show_timestamp(void);
 void update_rtc_ntp(void);
 
-#endif // RTC_H_
+#endif // _RTC_H_

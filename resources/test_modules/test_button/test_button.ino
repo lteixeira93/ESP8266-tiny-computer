@@ -1,13 +1,13 @@
-const int pinButton = 0; // D3
+#define PIN_BUTTON 0
 int i = 0;
 
 void setup() {
     Serial.begin(115200);
-    pinMode(pinButton, INPUT_PULLUP); // Using internal pull up resistor
+    pinMode(PIN_BUTTON, INPUT_PULLUP); // Using internal pull up resistor
     
 }
 void loop(){
-    if(digitalRead(pinButton) == LOW){
+    if(digitalRead(PIN_BUTTON) == LOW){
         Serial.println("Pushed");
         i++;        
         Serial.println(i);
@@ -15,5 +15,6 @@ void loop(){
     } else{
         Serial.println("Not Pushed");
         i = 0;
+        delay(1000);
     }
 }
