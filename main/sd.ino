@@ -5,7 +5,7 @@ void initialize_sd(void) {
     if (!SD.begin(CS_PIN)) {
         Serial.println("[SD] SD Card error");
         write_to_display("[SD] Error", FIRST_COLUMN, LINE_3, T_SIZE_1);
-        // ESP.reset();
+        ESP.reset();
     }
     
     write_to_display("[SD] Done", FIRST_COLUMN, LINE_3, T_SIZE_1);
