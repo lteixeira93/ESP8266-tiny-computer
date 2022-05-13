@@ -3,7 +3,7 @@
 
 void initialize_rtc(void){
     /* Initializes RTC */
-    write_to_display("[RTC] Done", FIRST_COLUMN, LINE_5, T_SIZE_1);
+    write_to_display("[RTC] Done", FIRST_COLUMN, LINE_4, T_SIZE_1);
     rtc.Begin();
     delay(1000);
     RtcDateTime currentTime = RtcDateTime(__DATE__, get_ntp_time());

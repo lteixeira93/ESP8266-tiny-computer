@@ -17,6 +17,7 @@ const char* get_ntp_time(void){
     timeClient.update();    
 
 #ifdef DEBUG_NTP       
+        Serial.print("[NTP] ");
         Serial.print(timeClient.getHours());
         Serial.print(":");
         Serial.print(timeClient.getMinutes());

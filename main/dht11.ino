@@ -19,7 +19,7 @@ float readTemperature(void){
     if(!isnan(temperature)){
         bTemperature = temperature;
 #ifdef DEBUG_DHT
-            Serial.print("Current temperature = ");
+            Serial.print("[DHT11] Current temperature = ");
             Serial.println(temperature);
 #endif
 
@@ -27,7 +27,7 @@ float readTemperature(void){
     }
     else{
 #ifdef DEBUG_DHT
-            Serial.print("Current temperature = ");
+            Serial.print("[DHT11] Current temperature = ");
             Serial.println(bTemperature);
 #endif
 
@@ -41,7 +41,7 @@ float readHumidity(void){
 
     if(!isnan(humidity)){
 #ifdef DEBUG_DHT
-            Serial.print("Current humidity = ");        
+            Serial.print("[DHT11] Current humidity = ");        
             Serial.println(humidity);
 #endif
 
@@ -51,7 +51,7 @@ float readHumidity(void){
     }
     else{
 #ifdef DEBUG_DHT
-            Serial.print("Current humidity = ");
+            Serial.print("[DHT11] Current humidity = ");
             Serial.println(bHumidity);
 #endif
 

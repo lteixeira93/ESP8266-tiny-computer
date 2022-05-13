@@ -42,6 +42,7 @@ Change debug level in debug.h setting or unsetting those flags:
 * DEBUG_DHT
 * DEBUG_NTP
 * DEBUG_WEBSERVER
+* DEBUG_IP
 
 #### References
 

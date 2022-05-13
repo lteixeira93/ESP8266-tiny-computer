@@ -33,6 +33,7 @@ void write_to_display(String text, int32_t x, int32_t y, int32_t text_size);
 void scroll_text(String text, int32_t x, int32_t y, int32_t text_size);
 void draw_cloud(void);
 void draw_ap(void);
+void show_app_status(void);
 
 // 'CLOUD', 128x64px
 const unsigned char cloud [] PROGMEM = {

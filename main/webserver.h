@@ -14,5 +14,7 @@
 void blink_on_connect(void);
 void wifi_setup_webserver(void);
 void reset_wifi_setup_webserver(void);
+void show_ip(void);
+void show_app_status(void);
 
 #endif // _WEBSERVER_H_ 

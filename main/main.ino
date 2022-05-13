@@ -16,13 +16,13 @@
 #define PIN_BUTTON           2  // Setting push button to D4 port
 #define BUTTON_HOLD_DELAY    5  // Hold button time to reset network configurations
 
-static void start_services(void);
+static void start(void);
 static void button_reset(void);
 static void sensor_data_sender(void);
 
 void setup(void){
     Serial.begin(115200);
-    start_services();
+    start();
 }
 
 void loop(void){    
@@ -31,7 +31,7 @@ void loop(void){
     sensor_data_sender();    
 }
 
-static void start_services(void) {
+static void start(void) {
     /* Initializing button using internal pull up resistor */
     pinMode(PIN_BUTTON, INPUT_PULLUP);
 
@@ -54,12 +54,12 @@ static void start_services(void) {
     initialize_dht11();
     initialize_sd();    
 
-    /* Initializing webserver */
-    wifi_setup_webserver();
-
     /* Initializing system clock */
     initialize_ntp();
     initialize_rtc();
+
+    /* Initializing webserver */
+    wifi_setup_webserver();
 }
 
 static void button_reset(void) {

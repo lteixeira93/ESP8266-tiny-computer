@@ -23,7 +23,6 @@ void check_mqtt_connection(void) {
         Serial.println(mqtt.connectErrorString(ret));
         Serial.println("[MQTT] Retrying MQTT connection in 5 seconds...");
 #endif
-
         mqtt.disconnect();
         delay(5000);  // Wait 5 seconds to retry
         retries--;
@@ -43,24 +42,24 @@ void publish_dht_data(float temperature, float humidity){
     /* Publishes DHT11 data */
     if (!Temperature.publish(temperature)) { 
 #ifdef DEBUG_MQTT
-        Serial.println(F("Temperature Failed"));
+        Serial.println(F("[MQTT] Temperature Failed"));
 #endif
     } else {
 #ifdef DEBUG_MQTT
-        Serial.println("Temperature: "+String(temperature)+"C");
+        Serial.println("[MQTT] Temperature: "+String(temperature)+"C");
 #endif
     }
 #ifdef DEBUG_MQTT
-        Serial.print(F("\nSending Humidity val "));
+        Serial.print(F("\n[MQTT] Sending Humidity val "));
 #endif
 
     if (!Humidity.publish(humidity)) {
 #ifdef DEBUG_MQTT
-        Serial.println(F("Humidity Failed"));
+        Serial.println(F("[MQTT] Humidity Failed"));
 #endif
     } else {
 #ifdef DEBUG_MQTT
-        Serial.println("Humidity: "+String(humidity)+"%");
+        Serial.println("[MQTT] Humidity: "+String(humidity)+"%");
 #endif
     }
 }

@@ -9,5 +9,6 @@
 // #define DEBUG_DHT
 // #define DEBUG_NTP
 // #define DEBUG_WEBSERVER
+// #define DEBUG_IP
 
 #endif // _DEBUG_H_

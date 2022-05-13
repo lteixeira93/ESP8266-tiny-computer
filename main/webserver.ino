@@ -22,11 +22,19 @@ void wifi_setup_webserver(void) {
     
     wifiManager.autoConnect("ESP_AP", "12345678"); 
 
-    if (WiFi.status() == WL_CONNECTED) {
-        write_to_display("[WIFI] Done", FIRST_COLUMN, LINE_4, T_SIZE_1);
-        Serial.println(WiFi.localIP()); 
-        blink_on_connect();
-    }    
+    do {
+        if (WiFi.status() == WL_CONNECTED) {
+            blink_on_connect();
+            write_to_display("[WIFI] Done", FIRST_COLUMN, LINE_5, T_SIZE_1);
+            delay(2000);
+            show_app_status();
+#ifdef DEBUG_IP
+            delay(1000);
+            show_ip();       
+#endif
+        }  
+    } while ((WiFi.status() != WL_CONNECTED));  
+          
 }
 
 void reset_wifi_setup_webserver(void) {
@@ -37,13 +45,21 @@ void reset_wifi_setup_webserver(void) {
 
     if (WiFi.status() == WL_CONNECTED) {
         blink_on_connect();
-
         clear_oled();
         write_to_display("[WIFI] Done", FIRST_COLUMN, LINE_0, T_SIZE_1);
-
-        String localIP = String() + WiFi.localIP()[0] + "." + WiFi.localIP()[1] + "." + WiFi.localIP()[2] + "." + WiFi.localIP()[3];
-        write_to_display(localIP, FIRST_COLUMN, LINE_2, T_SIZE_1);
-
-        Serial.println(WiFi.localIP());         
+        delay(2000);
+        show_app_status();
+#ifdef DEBUG_IP
+        delay(1000);
+        show_ip();                 
+#endif      
     }    
+}
+
+void show_ip(void) {
+    clear_oled();
+    String localIP = String() + WiFi.localIP()[0] + "." + WiFi.localIP()[1] + "." + WiFi.localIP()[2] + "." + WiFi.localIP()[3];
+    write_to_display(localIP, FIRST_COLUMN, LINE_2, T_SIZE_1);
+    Serial.print("[WIFI] "); 
+    Serial.println(WiFi.localIP()); 
 }
