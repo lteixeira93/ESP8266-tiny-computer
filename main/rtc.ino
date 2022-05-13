@@ -4,10 +4,11 @@
 void initialize_rtc(void){
     /* Initializes RTC */
     write_to_display("[RTC] Done", FIRST_COLUMN, LINE_4, T_SIZE_1);
-    rtc.Begin();
-    delay(1000);
+    rtc.Begin();   
     RtcDateTime currentTime = RtcDateTime(__DATE__, get_ntp_time());
     rtc.SetDateTime(currentTime);
+    delay(2000);
+    show_app_status();
 }
 
 void show_timestamp(void){

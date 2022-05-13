@@ -10,12 +10,7 @@ void blink_on_connect(void) {
 }
 
 void wifi_setup_webserver(void) {
-    /* Initializes wifi setup webserver */
-    // if (WiFi.status() != WL_CONNECTED) {
-    //     clear_oled();
-    //     draw_ap();
-    // }    
-    
+    /* Initializes wifi setup webserver */   
 #ifdef DEBUG_WEBSERVER
     wifiManager.resetSettings();
 #endif
@@ -26,8 +21,6 @@ void wifi_setup_webserver(void) {
         if (WiFi.status() == WL_CONNECTED) {
             blink_on_connect();
             write_to_display("[WIFI] Done", FIRST_COLUMN, LINE_5, T_SIZE_1);
-            delay(2000);
-            show_app_status();
 #ifdef DEBUG_IP
             delay(1000);
             show_ip();       
@@ -48,6 +41,7 @@ void reset_wifi_setup_webserver(void) {
         clear_oled();
         write_to_display("[WIFI] Done", FIRST_COLUMN, LINE_0, T_SIZE_1);
         delay(2000);
+        timestamp_flag = false;
         show_app_status();
 #ifdef DEBUG_IP
         delay(1000);

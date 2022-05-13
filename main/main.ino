@@ -16,6 +16,11 @@
 #define PIN_BUTTON           2  // Setting push button to D4 port
 #define BUTTON_HOLD_DELAY    5  // Hold button time to reset network configurations
 
+/* Specify time to send sensor data to Adafruit cloud */
+#define HOUR      19
+#define MINUTE    49
+#define SECOND    45
+
 static void start(void);
 static void button_reset(void);
 static void sensor_data_sender(void);
@@ -26,6 +31,7 @@ void setup(void){
 }
 
 void loop(void){    
+    Serial.println(timestamp_flag);
     button_reset();
     check_mqtt_connection();    
     sensor_data_sender();    
@@ -54,19 +60,19 @@ static void start(void) {
     initialize_dht11();
     initialize_sd();    
 
+    /* Initializing webserver */
+    wifi_setup_webserver();
+
     /* Initializing system clock */
     initialize_ntp();
     initialize_rtc();
-
-    /* Initializing webserver */
-    wifi_setup_webserver();
 }
 
 static void button_reset(void) {
     /* Reset counters for AP */
     static int setAPCounter = 0;
 
-    if(digitalRead(PIN_BUTTON) == LOW) {        
+    if(digitalRead(PIN_BUTTON) == LOW) {
         setAPCounter++;    
         delay(1000);
         if (setAPCounter == BUTTON_HOLD_DELAY) {                            
@@ -81,35 +87,39 @@ static void button_reset(void) {
 
 static void sensor_data_sender(void) {
     char rtc_time[MAX_RTC_TIME_STR];
-    String dataString = "";
-
     RtcDateTime currentTime = rtc.GetDateTime(); 
+
+    String dataString = "";
 
 #ifdef DEBUG_RTC
     show_timestamp();
-#endif
+#endif 
 
-    /* DHT11 sensor data will be sent to adafruit cloud and also reset RTC using NTP - TO:DO Need Fix */
-    if ((currentTime.Hour() == 10 && currentTime.Minute() == 0 && currentTime.Second() == 0) 
-        ||
-        (currentTime.Hour() == 18 && currentTime.Minute() == 0 && currentTime.Second() == 0)) 
-    {    
-        // Saving locally on SD card
-        delay(500);
-        dataString = String(rtc_time) + " , " + String(readHumidity()) + " , " + String(readTemperature());
-        write_to_sd_card(dataString);
-        clear_oled();
-        draw_cloud();
+    sprintf(rtc_time, "%d/%d/%d %d:%d:%d",       
+        currentTime.Month(),            
+        currentTime.Day(),            
+        currentTime.Year(),            
+        currentTime.Hour(),             
+        currentTime.Minute(),           
+        currentTime.Second()
+    );
+
+    /* DHT11 sensor data will be sent to adafruit cloud */
+    if (currentTime.Hour() == HOUR && currentTime.Minute() == MINUTE && currentTime.Second() == SECOND) {    
+        timestamp_flag = true;
+        dataString = String(rtc_time) + ";" + String(readHumidity()) + ";" + String(readTemperature()) + ";";
+        draw_cloud();   
+        delay(2000);     
+        write_to_sd_card(dataString);        
         publish_dht_data(readTemperature(), readHumidity());
-        update_rtc_ntp();
-        delay(3000); // Add 3 seconds delay to jump multiple true in if statement in the same second TO:DO Remove delay
-        clear_oled();
-        write_to_display("[STATUS] Running", 0, 0, 1);
+        show_app_status();
+        update_rtc_ntp();              
     }
    
 #ifdef DEBUG_ESP       
     Serial.println(readHumidity());
-    Serial.println(readTemperature());        
+    Serial.println(readTemperature());    
+    dataString = String(rtc_time) + ";" + String(readHumidity()) + ";" + String(readTemperature()) + ";";    
     Serial.println(dataString);
     delay(1000);
 #endif

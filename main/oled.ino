@@ -10,7 +10,7 @@ void initialize_oled(void) {
 #ifdef DEBUG_OLED
             Serial.println(F("[OLED] SSD1306 allocation failed"));
 #endif
-        for(;;);
+        ESP.reset();
     }  
 
     // Show initial display buffer contents on the screen --
@@ -43,7 +43,7 @@ void scroll_text(String text, int32_t x, int32_t y, int32_t text_size) {
 	display.setTextSize(text_size);
 	display.println(text);
 	display.display();
-	display.startscrollright(0x00, 0x0F);
+	display.startscrollleft(0x00, 0x0F);
     delay(1000);
 }
 
@@ -53,13 +53,28 @@ void draw_cloud(void){
     display.display();
 }
 
-void draw_ap(void){
-    clear_oled();
-    display.drawBitmap(0, 0, apoint, 128, 64, WHITE);
-    display.display();
-}
-
 void show_app_status(void) {
     clear_oled();
-    scroll_text("[STATUS] Running", FIRST_COLUMN, LINE_0, T_SIZE_1);
+    write_to_display("[STATUS] Running", FIRST_COLUMN, LINE_0, T_SIZE_1);      
+
+    if(timestamp_flag == true) {
+        write_to_display("Last sent data:", FIRST_COLUMN, LINE_2, T_SIZE_1);  
+        RtcDateTime currentTime = rtc.GetDateTime(); 
+        char rtc_date[MAX_RTC_TIME_STR];
+        char rtc_time[MAX_RTC_TIME_STR];
+    
+        sprintf(rtc_date, "%d/%d/%d",       
+            currentTime.Month(),            
+            currentTime.Day(),            
+            currentTime.Year()
+        );  
+        sprintf(rtc_time, "%d:%d:%d",             
+            currentTime.Hour(),             
+            currentTime.Minute(),           
+            currentTime.Second()
+        );  
+
+        write_to_display(rtc_date, FIRST_COLUMN, LINE_3, T_SIZE_1);  
+        write_to_display(rtc_time, FIRST_COLUMN, LINE_4, T_SIZE_1); 
+    } 
 }

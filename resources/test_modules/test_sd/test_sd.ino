@@ -11,7 +11,8 @@ void initialize_sd(void) {
     Serial.println("Initializing");
     if (!SD.begin(CS_PIN)) {
         Serial.println("SD Card error");
-        return;
+        delay(2000);
+        ESP.reset();
     }
     
     Serial.println("Card Initialized");   
