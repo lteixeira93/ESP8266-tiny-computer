@@ -3,7 +3,7 @@
 
 #include <SPI.h>
 #include <SD.h>
-//#include "debug.h"
+#include "debug.h"
 
 #define CS_PIN 15
 

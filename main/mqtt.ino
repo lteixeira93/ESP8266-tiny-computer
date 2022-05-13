@@ -1,10 +1,14 @@
 #include "mqtt.h"
 
-bool mqttConnectFlag = true;
+WiFiClient client;
 
-void check_mqtt_connection(void){
-    /*Handles connection to mqtt server*/
-    clear_oled();
+/* Initializes mqtt server */
+Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVER_PORT, AIO_USERNAME, AIO_KEY);
+Adafruit_MQTT_Publish Temperature = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/temperature");
+Adafruit_MQTT_Publish Humidity = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/humidity");  
+
+void check_mqtt_connection(void) {
+    /* Handles connection to mqtt server */
     int8_t ret;
 
     // Stop if already connected.
@@ -12,57 +16,51 @@ void check_mqtt_connection(void){
         return;
     }
     
-    uint8_t retries = 5;
-    while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
-        #ifdef DEBUG_MQTT
-            Serial.println(mqtt.connectErrorString(ret));
-            Serial.println("Retrying MQTT connection in 5 seconds...");
-        #endif
+    uint8_t retries = MQTT_CON_RETRIES;
+
+    while ((ret = mqtt.connect()) != 0) { // Connecting will return 0 for connected
+#ifdef DEBUG_MQTT
+        Serial.println(mqtt.connectErrorString(ret));
+        Serial.println("[MQTT] Retrying MQTT connection in 5 seconds...");
+#endif
 
         mqtt.disconnect();
-        delay(5000);  // wait 5 seconds
+        delay(5000);  // Wait 5 seconds to retry
         retries--;
         if (retries == 0) {
-            ESP.reset(); // TO:DO Check this
+            Serial.println("[MQTT] Couldn't Connect, restarting");
+            delay(1000);
+            ESP.reset();
         }
     }
-    #ifdef DEBUG_MQTT
-        Serial.println("MQTT Connected!");
-    #endif
 
-    if (mqttConnectFlag == true)
-    {
-        mqttConnectFlag = false;
-        clear_oled();
-        write_to_display("[MQTT] Connected", 0, 0, 1);
-        delay(1000);
-        clear_oled();
-    } 
-    
+#ifdef DEBUG_MQTT
+        Serial.println("[MQTT] Connected");
+#endif    
 }
 
 void publish_dht_data(float temperature, float humidity){
-    /*Publishes dht11 data*/
-    if (! Temperature.publish(temperature)) { 
-        #ifdef DEBUG_MQTT
-            Serial.println(F("Temperature Failed"));
-        #endif
+    /* Publishes DHT11 data */
+    if (!Temperature.publish(temperature)) { 
+#ifdef DEBUG_MQTT
+        Serial.println(F("Temperature Failed"));
+#endif
     } else {
-        #ifdef DEBUG_MQTT
-            Serial.println("Temperature: "+String(temperature)+"C");
-        #endif
+#ifdef DEBUG_MQTT
+        Serial.println("Temperature: "+String(temperature)+"C");
+#endif
     }
-    #ifdef DEBUG_MQTT
+#ifdef DEBUG_MQTT
         Serial.print(F("\nSending Humidity val "));
-    #endif
+#endif
 
-    if (! Humidity.publish(humidity)) {
-        #ifdef DEBUG_MQTT
-            Serial.println(F("Humidity Failed"));
-        #endif
+    if (!Humidity.publish(humidity)) {
+#ifdef DEBUG_MQTT
+        Serial.println(F("Humidity Failed"));
+#endif
     } else {
-        #ifdef DEBUG_MQTT
-            Serial.println("Humidity: "+String(humidity)+"%");
-        #endif
+#ifdef DEBUG_MQTT
+        Serial.println("Humidity: "+String(humidity)+"%");
+#endif
     }
 }

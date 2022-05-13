@@ -1,26 +1,20 @@
 #include "sd.h"
 
 void initialize_sd(void) {
-    /*Initializes SD card*/
-    clear_oled();
-    write_to_display("[SD] Initializing", 0, 0, 1);
-    delay(1000);
-
+    /* Initializes SD card */
+    write_to_display("[SD] Done", FIRST_COLUMN, LINE_3, T_SIZE_1);
+    
     if (!SD.begin(CS_PIN)) {
-        clear_oled();
-        write_to_display("[SD] SD Card error", 0, 0, 1);
-        Serial.println("SD Card error");
+        Serial.println("[SD] SD Card error");
         return;
     }
     
-    clear_oled();
-    write_to_display("[SD] Card Initialized", 0, 0, 1);
-    Serial.println("Card Initialized");   
+    Serial.println("[SD] Card Initialized");   
+    delay(1000);
 }
 
 void write_to_sd_card(String data) {
-    /*Write to SD card*/
-
+    /* Write to SD card */
     File dataFile;
     dataFile = SD.open("datalog.csv", FILE_WRITE);
 

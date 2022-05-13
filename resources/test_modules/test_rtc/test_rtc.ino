@@ -10,7 +10,7 @@
 
 RtcDS3231<TwoWire> rtc(Wire);
 
-char RTC_TIME[20];
+char rtc_time[20];
 char NTC_TIME[MAX_NTC_TIME_STR];
 
 const char *ssid     = "VIVOFIBRA-072D";
@@ -23,7 +23,7 @@ WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org", utcOffsetInSeconds);
 
 void initialize_ntp(void){
-    /*Initializes NTP Client to get time*/
+    /* Initializes NTP Client to get time */
     WiFi.begin(ssid, password);
 
     while ( WiFi.status() != WL_CONNECTED ) {
@@ -57,7 +57,7 @@ void setup() {
   
 void loop() {
   RtcDateTime currentTime = rtc.GetDateTime();
-  sprintf(RTC_TIME, "%d/%d/%d %d:%d:%d",       
+  sprintf(rtc_time, "%d/%d/%d %d:%d:%d",       
           currentTime.Year(),            
           currentTime.Month(),            
           currentTime.Day(),              
@@ -65,5 +65,5 @@ void loop() {
           currentTime.Minute(),           
           currentTime.Second()
   );
-  Serial.println(RTC_TIME);
+  Serial.println(rtc_time);
 }

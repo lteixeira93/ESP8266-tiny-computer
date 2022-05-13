@@ -7,10 +7,25 @@
 #include <Adafruit_SSD1306.h>
 #include "debug.h"
 
-#define SCREEN_WIDTH    128  // OLED display width, in pixels
-#define SCREEN_HEIGHT   64   // OLED display height, in pixels
-#define OLED_RESET      -1   // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS  0x3C // See datasheet for Address; 0x3C for 128x64, 0x3D for 128x32
+#define SCREEN_WIDTH    	128  // OLED display width, in pixels
+#define SCREEN_HEIGHT   	64   // OLED display height, in pixels
+#define OLED_RESET      	-1   // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS  	0x3C // See datasheet for Address; 0x3C for 128x64, 0x3D for 128x32
+
+/* OLED LINES */
+#define LINE_0  			0  	 // Line 0
+#define LINE_2  			20 	 // Line 2
+#define LINE_3  			30 	 // Line 3
+#define LINE_4  			40 	 // Line 4
+#define LINE_5  			50 	 // Line 5
+
+/* OLED COLUMNS */
+#define FIRST_COLUMN  		0
+#define CENTERED_COLUMN  	15
+
+/* OLED TEXT SIZE */
+#define T_SIZE_1  			1
+#define T_SIZE_2  			2
 
 void initialize_oled(void);
 void clear_oled(void);

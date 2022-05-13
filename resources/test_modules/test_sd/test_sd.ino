@@ -7,7 +7,7 @@
 bool writeToFlash = false;
 
 void initialize_sd(void) {
-    /*Initializes SD card*/
+    /* Initializes SD card */
     Serial.println("Initializing");
     if (!SD.begin(CS_PIN)) {
         Serial.println("SD Card error");
@@ -18,7 +18,7 @@ void initialize_sd(void) {
 }
 
 void write_to_sd_card(String data) {
-    /*Write to SD card*/
+    /* Write to SD card */
     File dataFile;
     dataFile = SD.open("datalog.csv", FILE_WRITE);
 
@@ -30,7 +30,7 @@ void write_to_sd_card(String data) {
 }
 
 void erase_sd_card(String data) {
-    /*Erase data on SD card*/
+    /* Erase data on SD card */
     SD.remove(data);
 
     if (SD.exists(data)) { 

@@ -9,13 +9,13 @@ float bTemperature = 0;
 float bHumidity    = 0;
 
 void initialize_dht11(void){
-    /*Initializes sensor*/
+    /* Initializes sensor */
     dht.begin();
     delay(1000);
 }
 
 float readTemperature(void){
-    /*Reads temperature*/
+    /* Reads temperature */
     float temperature = dht.readTemperature();
 
     if(!isnan(temperature)){
@@ -34,7 +34,7 @@ float readTemperature(void){
 }
 
 float readHumidity(void){
-    /*Reads humidity*/
+    /* Reads humidity */
     float humidity = dht.readHumidity();
 
     if(!isnan(humidity)){

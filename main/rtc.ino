@@ -2,22 +2,20 @@
 #include "ntp.h"
 
 void initialize_rtc(void){
-    /*Initializes RTC*/
-    clear_oled();
-    write_to_display("[RTC] Initializing", 0, 0, 1);
+    /* Initializes RTC */
+    write_to_display("[RTC] Done", FIRST_COLUMN, LINE_5, T_SIZE_1);
     rtc.Begin();
     delay(1000);
     RtcDateTime currentTime = RtcDateTime(__DATE__, get_ntp_time());
     rtc.SetDateTime(currentTime);
-
 }
 
 void show_timestamp(void){
-    /*Show RTC properties*/
+    /* Show RTC properties */
     RtcDateTime currentTime = rtc.GetDateTime(); 
-    char RTC_TIME[MAX_RTC_TIME_STR];
+    char rtc_time[MAX_RTC_TIME_STR];
   
-    sprintf(RTC_TIME, "%d/%d/%d %d:%d:%d",       
+    sprintf(rtc_time, "%d/%d/%d %d:%d:%d",       
         currentTime.Year(),            
         currentTime.Month(),            
         currentTime.Day(),              
@@ -26,7 +24,7 @@ void show_timestamp(void){
         currentTime.Second()
     );
 
-    Serial.println(RTC_TIME);
+    Serial.println(rtc_time);
 }
 
 void update_rtc_ntp(void){

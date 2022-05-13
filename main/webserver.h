@@ -8,10 +8,11 @@
 #include <WiFiManager.h>
 #include "debug.h"
 
-// ESP8266WebServer server(80);
-void initialize_webserver(void);
-void wifi_setup_webserver(void);
+#define AP_SSID "ESP-AP"
+#define AP_PASS "12345678"
 
-WiFiManager wifiManager;
+void blink_on_connect(void);
+void wifi_setup_webserver(void);
+void reset_wifi_setup_webserver(void);
 
 #endif // _WEBSERVER_H_ 
