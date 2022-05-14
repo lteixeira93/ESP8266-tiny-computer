@@ -14,9 +14,6 @@
 - Using RTC and specified time, NodeMCU will send DHT11 sensor data (Humidity and Temperature to the cloud and also save data locally on SD card in .csv format)
 - For each step, it will show informations on OLED display and serial monitor
 
-## How it Looks
-Please see \resources\images
-
 ## Quick Start
 
 ### Installing
