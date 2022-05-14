@@ -5,26 +5,22 @@
 
 [https://github.com/esp8266/Arduino](https://github.com/esp8266/Arduino)
 
-**This works with the ESP32 Arduino platform** 
-
-[https://github.com/espressif/arduino-esp32](https://github.com/espressif/arduino-esp32)
-
 -------
-## How It Works
-- This project explore almost all of the features of NodeMCU - ESP8266 platform, this way becoming a tiny computer
-- After code is loaded, NodeMCU will initialize all peripherals (I2C and SPI)
-- NodeMCU will try to connect to a previous saved network, if not successfull it will enable an access point with name ESP_AP so you can connect and scan networks through a graphical mode
-- After successfully connected to a network it will update RTC clock using NTP over the internet and after  this, connect to mqtt broker (Adafruit IO) to send sensor data to a cloud dashboard
-- Everyday at a specific time, using RTC, NodeMCU will send DHT11 sensor data (Humidity and Temperature to the cloud and also save data locally in SD card in .csv format)
-- For each step, it will show informations on OLED display
+## How it Works
+- This project aims to use most of NodeMCU features - ESP8266 platform, this way becoming a tiny computer
+- After code is loaded, NodeMCU will initialize (I2C, SPI, Webserver and MQTT)
+- NodeMCU will try to connect to a previous saved network, if not successfull it will enable an access point so you can connect and scan networks through a graphical interface
+- After successfully connected to a network it will update RTC clock using NTP server over the internet and then connect to mqtt broker (Adafruit IO) to send DHT11 sensor data to a cloud dashboard
+- Using RTC and specified time, NodeMCU will send DHT11 sensor data (Humidity and Temperature to the cloud and also save data locally on SD card in .csv format)
+- For each step, it will show informations on OLED display and serial monitor
 
-## How It Looks
+## How it Looks
 Please see \resources\images
 
 ## Quick Start
 
 ### Installing
-Install libs from resources\requirements\requirements.txt in Arduino library manager and enable ESP8266 support on Arduino IDE
+Install libs from resources\requirements\requirements.txt on Arduino library manager and enable ESP8266 board support on Arduino IDE
 
 ### Debug
 Change debug level in debug.h setting or unsetting those flags:
