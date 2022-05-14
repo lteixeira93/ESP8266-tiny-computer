@@ -20,7 +20,7 @@
 Install libs from resources\requirements\requirements.txt on Arduino library manager and enable ESP8266 board support on Arduino IDE
 
 ### Debug
-Change debug level in debug.h setting or unsetting those flags:
+Change debug level by setting these flags:
 * DEBUG_ESP
 * DEBUG_OLED
 * DEBUG_MQTT
