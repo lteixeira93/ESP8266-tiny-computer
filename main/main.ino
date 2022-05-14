@@ -17,9 +17,9 @@
 #define BUTTON_HOLD_DELAY    5  // Hold button time to reset network configurations
 
 /* Specify time to send sensor data to Adafruit cloud */
-#define HOUR      19
-#define MINUTE    49
-#define SECOND    45
+#define HOUR                 12
+#define MINUTE               0
+#define SECOND               0
 
 static void start(void);
 static void button_reset(void);
@@ -31,7 +31,6 @@ void setup(void){
 }
 
 void loop(void){    
-    Serial.println(timestamp_flag);
     button_reset();
     check_mqtt_connection();    
     sensor_data_sender();    
@@ -108,9 +107,9 @@ static void sensor_data_sender(void) {
     if (currentTime.Hour() == HOUR && currentTime.Minute() == MINUTE && currentTime.Second() == SECOND) {    
         timestamp_flag = true;
         dataString = String(rtc_time) + ";" + String(readHumidity()) + ";" + String(readTemperature()) + ";";
+        write_to_sd_card(dataString);
         draw_cloud();   
-        delay(2000);     
-        write_to_sd_card(dataString);        
+        delay(2000);                
         publish_dht_data(readTemperature(), readHumidity());
         show_app_status();
         update_rtc_ntp();              
@@ -121,6 +120,12 @@ static void sensor_data_sender(void) {
     Serial.println(readTemperature());    
     dataString = String(rtc_time) + ";" + String(readHumidity()) + ";" + String(readTemperature()) + ";";    
     Serial.println(dataString);
+    delay(1000);
+#endif
+
+#ifdef DEBUG_SD      
+    Serial.println("Writing to SD");
+    write_to_sd_card(dataString);
     delay(1000);
 #endif
 }

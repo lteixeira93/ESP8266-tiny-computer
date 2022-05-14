@@ -27,7 +27,9 @@ void check_mqtt_connection(void) {
         delay(5000);  // Wait 5 seconds to retry
         retries--;
         if (retries == 0) {
-            Serial.println("[MQTT] Couldn't Connect, restarting");
+            clear_oled();
+            write_to_display("[MQTT] Conn Error", FIRST_COLUMN, LINE_0, T_SIZE_1);
+            Serial.println("[MQTT] Couldn't connect, restarting");
             delay(1000);
             ESP.reset();
         }
