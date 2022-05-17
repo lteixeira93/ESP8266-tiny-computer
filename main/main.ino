@@ -14,13 +14,12 @@
 
 /* Defines */
 #define PIN_BUTTON           2  // Setting push button to D4 port
-#define BUTTON_HOLD_DELAY    5  // Hold button time to reset network configurations
-
-/* Specify time to send sensor data to Adafruit cloud */
+#define BUTTON_HOLD_DELAY    5
 #define HOUR                 12
-#define MINUTE               00
-#define SECOND               00
+#define MINUTE               0
+#define SECOND               0
 
+/* Prototypes */
 static void start(void);
 static void button_reset(void);
 static void sensor_data_sender(void);
@@ -85,6 +84,7 @@ static void button_reset(void) {
 }
 
 static void sensor_data_sender(void) {
+    /* DHT11 sensor data will be sent to adafruit cloud */
     char rtc_time[MAX_RTC_TIME_STR];
     RtcDateTime currentTime = rtc.GetDateTime(); 
 
@@ -103,7 +103,6 @@ static void sensor_data_sender(void) {
         currentTime.Second()
     );
 
-    /* DHT11 sensor data will be sent to adafruit cloud */
     if (currentTime.Hour() == HOUR && currentTime.Minute() == MINUTE && currentTime.Second() == SECOND) {    
         timestamp_flag = true;
         dataString = String(rtc_time) + ";" + String(readHumidity()) + ";" + String(readTemperature()) + ";";

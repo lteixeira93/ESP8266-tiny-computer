@@ -2,8 +2,8 @@
 
 DHT dht (DHT_PIN, DHT_TYPE);
 
-unsigned char bTemperature = 0;
-unsigned char bHumidity    = 0;
+static unsigned char bTemperature = 0;
+static unsigned char bHumidity    = 0;
 
 void initialize_dht11(void){
     /* Initializes sensor */
@@ -19,16 +19,16 @@ unsigned char readTemperature(void){
     if(!isnan(temperature)){
         bTemperature = temperature;
 #ifdef DEBUG_DHT
-            Serial.print("[DHT11] Current temperature = ");
-            Serial.println(temperature);
+        Serial.print("[DHT11] Current temperature = ");
+        Serial.println(temperature);
 #endif
 
         return temperature;
     }
     else{
 #ifdef DEBUG_DHT
-            Serial.print("[DHT11] Current temperature = ");
-            Serial.println(bTemperature);
+        Serial.print("[DHT11] Current temperature = ");
+        Serial.println(bTemperature);
 #endif
 
         return bTemperature;
@@ -41,8 +41,8 @@ unsigned char readHumidity(void){
 
     if(!isnan(humidity)){
 #ifdef DEBUG_DHT
-            Serial.print("[DHT11] Current humidity = ");        
-            Serial.println(humidity);
+        Serial.print("[DHT11] Current humidity = ");        
+        Serial.println(humidity);
 #endif
 
         bHumidity = humidity;
@@ -51,8 +51,8 @@ unsigned char readHumidity(void){
     }
     else{
 #ifdef DEBUG_DHT
-            Serial.print("[DHT11] Current humidity = ");
-            Serial.println(bHumidity);
+        Serial.print("[DHT11] Current humidity = ");
+        Serial.println(bHumidity);
 #endif
 
         return bHumidity;

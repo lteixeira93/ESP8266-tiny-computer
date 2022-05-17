@@ -28,7 +28,7 @@
 #define T_SIZE_1  			1
 #define T_SIZE_2  			2
 
-extern bool timestamp_flag = false;
+bool timestamp_flag = false;
 
 void initialize_oled(void);
 void clear_oled(void);

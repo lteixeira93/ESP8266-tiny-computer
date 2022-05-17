@@ -6,7 +6,7 @@
 #include "debug.h"
 #include "oled.h"
 
-#define MAX_NTC_TIME_STR 10
+#define MAX_NTC_TIME_STR 15
 
 void initialize_ntp(void);
 const char* get_ntp_time(void);

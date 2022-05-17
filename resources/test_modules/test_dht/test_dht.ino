@@ -20,15 +20,15 @@ unsigned char readTemperature(void){
 
     if(!isnan(temperature)){
         bTemperature = temperature;
-            Serial.print("Current temperature = ");
-            Serial.println(temperature);
-            delay(1000);
+        Serial.print("Current temperature = ");
+        Serial.println(temperature);
+        delay(1000);
         return temperature;
     }
     else{
-            Serial.print("Current temperature = ");
-            Serial.println(bTemperature);
-            delay(1000);
+        Serial.print("Current temperature = ");
+        Serial.println(bTemperature);
+        delay(1000);
         return bTemperature;
     }
 }
@@ -38,17 +38,17 @@ unsigned char readHumidity(void){
     unsigned char humidity = dht.readHumidity();
 
     if(!isnan(humidity)){
-            Serial.print("Current humidity = ");        
-            Serial.println(humidity);
-            delay(1000);
+        Serial.print("Current humidity = ");        
+        Serial.println(humidity);
+        delay(1000);
         bHumidity = humidity;
         
         return humidity;
     }
     else{
-            Serial.print("Current humidity = ");
-            Serial.println(bHumidity);
-            delay(1000);
+        Serial.print("Current humidity = ");
+        Serial.println(bHumidity);
+        delay(1000);
         return bHumidity;
     }    
 }

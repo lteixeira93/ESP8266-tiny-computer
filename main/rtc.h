@@ -6,7 +6,7 @@
 #include <RtcDS3231.h>
 #include "debug.h"
 
-#define MAX_RTC_TIME_STR 20
+#define MAX_RTC_TIME_STR 25
 
 RtcDS3231<TwoWire> rtc(Wire);
 

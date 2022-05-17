@@ -13,8 +13,8 @@ void initialize_rtc(void){
 
 void show_timestamp(void){
     /* Show RTC properties */
-    RtcDateTime currentTime = rtc.GetDateTime(); 
     char rtc_time[MAX_RTC_TIME_STR];
+    RtcDateTime currentTime = rtc.GetDateTime();     
   
     sprintf(rtc_time, "%d/%d/%d %d:%d:%d",       
         currentTime.Year(),            
@@ -25,6 +25,8 @@ void show_timestamp(void){
         currentTime.Second()
     );
 
+    rtc_time[strlen(rtc_time) + 1] = '\0';
+    
     Serial.println(rtc_time);
 }
 
