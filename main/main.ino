@@ -18,8 +18,8 @@
 
 /* Specify time to send sensor data to Adafruit cloud */
 #define HOUR                 12
-#define MINUTE               0
-#define SECOND               0
+#define MINUTE               00
+#define SECOND               00
 
 static void start(void);
 static void button_reset(void);

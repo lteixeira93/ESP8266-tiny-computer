@@ -40,7 +40,7 @@ void check_mqtt_connection(void) {
 #endif    
 }
 
-void publish_dht_data(float temperature, float humidity){
+void publish_dht_data(unsigned char temperature, unsigned char humidity) {
     /* Publishes DHT11 data */
     if (!Temperature.publish(temperature)) { 
 #ifdef DEBUG_MQTT

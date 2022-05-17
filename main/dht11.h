@@ -9,7 +9,7 @@
 #define DHT_PIN     0
 
 void initialize_dht11(void);
-float readTemperature(void);
-float readHumidity(void);
+unsigned char readTemperature(void);
+unsigned char readHumidity(void);
 
 #endif // _DHT11_H_

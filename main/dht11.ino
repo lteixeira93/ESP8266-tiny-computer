@@ -2,8 +2,8 @@
 
 DHT dht (DHT_PIN, DHT_TYPE);
 
-float bTemperature = 0;
-float bHumidity    = 0;
+unsigned char bTemperature = 0;
+unsigned char bHumidity    = 0;
 
 void initialize_dht11(void){
     /* Initializes sensor */
@@ -12,9 +12,9 @@ void initialize_dht11(void){
     delay(1000);
 }
 
-float readTemperature(void){
+unsigned char readTemperature(void){
     /* Reads temperature */
-    float temperature = dht.readTemperature();
+    unsigned char temperature = dht.readTemperature();
 
     if(!isnan(temperature)){
         bTemperature = temperature;
@@ -35,9 +35,9 @@ float readTemperature(void){
     }
 }
 
-float readHumidity(void){
+unsigned char readHumidity(void){
     /* Reads humidity */
-    float humidity = dht.readHumidity();
+    unsigned char humidity = dht.readHumidity();
 
     if(!isnan(humidity)){
 #ifdef DEBUG_DHT

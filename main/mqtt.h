@@ -14,6 +14,6 @@
 #define MQTT_CON_RETRIES    5
 
 void check_mqtt_connection(void);
-void publish_dht_data(float temperature, float humidity);
+void publish_dht_data(unsigned char temperature, unsigned char humidity);
 
 #endif // _MQTT_H_
