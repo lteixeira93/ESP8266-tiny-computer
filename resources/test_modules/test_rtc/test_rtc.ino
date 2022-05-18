@@ -67,7 +67,6 @@ void loop() {
           currentTime.Minute(),           
           currentTime.Second()
   );
-
-  rtc_time[strlen(rtc_time) + 1] = '\0';
+  
   Serial.println(rtc_time);
 }
